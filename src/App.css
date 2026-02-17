@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+/* --- RESET GLOBAL IMPORTANT --- */
+* {
+  box-sizing: border-box; /* Supprime le bug du scroll horizontal */
+}
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden; /* Empêche tout scroll sur la page entière */
+}
+
+/* --- LE LAYOUT 3 COLONNES --- */
+.game-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* 1. Zone Clic (30%) */
+.col-left {
+  width: 30%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 30%, #1e293b, #0f172a 80%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid #000;
+  padding: 2rem;
+  z-index: 10;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+}
+
+/* 2. Zone Améliorations & Secrets (35%) */
+.col-middle {
+  width: 35%;
+  height: 100%;
+  background-color: #162032;
+  border-right: 2px solid #000;
+  padding: 2rem;
+  overflow-y: auto; /* Permet le scroll vertical uniquement ici */
+}
+
+/* 3. Zone Bâtiments (35%) */
+.col-right {
+  width: 35%;
+  height: 100%;
+  background-color: #0f172a;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+/* --- ZONE DE SCORE --- */
+.score-box {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 3rem;
+  min-height: 180px;
+}
+
+.score-box h2 {
+  margin: 0; color: #94a3b8; letter-spacing: 2px;
+}
+
+.score-number {
+  font-size: 3.5rem; /* Légèrement réduit pour fit */
+  font-weight: 800;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stats {
+  display: flex; gap: 1rem; justify-content: center; color: #cbd5e1; font-weight: 600; margin-top: 1rem; flex-wrap: wrap;
+}
+.stats p { margin: 0; }
+
+/* --- LE ROND --- */
+.main-circle {
+  width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffaa85, #ff7e5f, #e05e3f);
+  border: none;
+  box-shadow: 0 0 40px rgba(255,126,95,0.4), inset -15px -15px 25px rgba(0,0,0,0.3), inset 15px 15px 25px rgba(255,255,255,0.4);
+  cursor: pointer; position: relative; transition: transform 0.05s ease;
+  animation: pulse 3s infinite ease-in-out;
+}
+.main-circle:active { transform: scale(0.92); animation: none; }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); box-shadow: 0 0 60px rgba(255,126,95,0.6), inset -15px -15px 25px rgba(0,0,0,0.3), inset 15px 15px 25px rgba(255,255,255,0.4); }
+}
+
+.particle {
+  position: absolute; color: #fff; font-size: 1.5rem; font-weight: 800; pointer-events: none; user-select: none;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5); transform: translate(-50%, -50%);
+  animation: floatUp 0.8s ease-out forwards; z-index: 10;
+}
+@keyframes floatUp {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -120px) scale(1.5); }
+}
+
+/* --- PANNEAU DU MILIEU (Boutique) --- */
+.shop-panel {
+  background: rgba(30,41,59,0.5); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);
+}
+.shop-title {
+  color: #e2e8f0; font-size: 1.3rem; margin-top: 0; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sticky-title {
+  position: sticky; top: -2rem; background: #0f172a; padding: 1rem 0; z-index: 5; margin-top: -1rem;
+}
+
+.shop-grid { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+
+.upgrade-btn {
+  display: flex; justify-content: space-between; align-items: center; padding: 1rem;
+  background: #334155; color: #f8fafc; border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;
+}
+.upgrade-btn strong { color: #feb47b; }
+.upgrade-btn span { background: rgba(0,0,0,0.2); padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.85rem; }
+.upgrade-btn:not(:disabled):hover { background: #475569; border-color: #ff7e5f; transform: translateY(-2px); }
+.upgrade-btn:disabled { opacity: 0.5; cursor: not-allowed; background: #1e293b; }
+.upgrade-btn:disabled strong { color: #64748b; }
+
+.secret-title { color: #c4b5fd; }
+.secret-btn { background: #2e1065; border-color: #8b5cf6; }
+.secret-btn strong { color: #c4b5fd; }
+.secret-btn:not(:disabled):hover { background: #4c1d95; border-color: #a78bfa; }
+
+.prestige-btn { background: linear-gradient(135deg, #b45309, #d97706); border: 2px solid #fbbf24; color: #fff; padding: 1rem; width: 100%; border-radius: 10px; cursor: pointer; transition: all 0.3s; font-weight: bold; }
+.prestige-btn:not(:disabled):hover { transform: scale(1.02); }
+
+.reset-btn { margin-top: 2rem; background: transparent; border: 1px solid #ef4444; color: #ef4444; padding: 0.6rem; border-radius: 6px; cursor: pointer; width: 100%; transition: all 0.2s; }
+.reset-btn:hover { background: #ef4444; color: #fff; }
+
+/* --- PANNEAU DE DROITE (Bâtiments) --- */
+.buildings-list { display: flex; flex-direction: column; gap: 0.8rem; }
+
+.building-row {
+  display: flex; align-items: center; background: #1e293b; border: 1px solid #334155; padding: 0; border-radius: 8px; cursor: pointer; overflow: hidden; transition: all 0.2s; color: inherit; text-align: left;
+}
+.building-row:not(.disabled):hover { background: #334155; border-color: #94a3b8; transform: translateX(5px); }
+.building-row.disabled { opacity: 0.4; cursor: not-allowed; filter: grayscale(100%); }
+
+.b-icon { font-size: 2rem; padding: 0.8rem; background: rgba(0,0,0,0.2); width: 60px; text-align: center; }
+.b-details { flex: 1; padding: 0.5rem 1rem; }
+.b-details h3 { margin: 0; font-size: 1rem; color: #f8fafc; }
+.b-cost { margin: 0; font-weight: bold; color: #4ade80; font-size: 0.9rem;}
+.b-count { font-size: 2rem; font-weight: bold; color: rgba(255,255,255,0.15); padding: 0 1rem; }
