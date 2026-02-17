@@ -29,7 +29,7 @@ Si vous souhaitez cloner le projet et le faire tourner sur votre machine :
 
 **1. Cloner le dépôt :**
 ```bash
-git clone [https://github.com/JUDOKA104/clicker-game.git](https://github.com/TON_USER/clicker-game.git)
+git clone [https://github.com/JUDOKA104/clicker-game.git](https://github.com/JUDOKA104/clicker-game.git)
 ```
 
 **2. Aller dans le dossier :**
