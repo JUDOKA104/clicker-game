@@ -14,47 +14,39 @@ Un jeu incrémental (Clicker/Idle Game) développé de zéro avec **React** et *
 ## ✨ Fonctionnalités Principales
 
 * **Interface à 3 colonnes (UI Fixe) :** Inspirée des classiques du genre, avec une zone d'action, une boutique d'améliorations et un gestionnaire de bâtiments, le tout sans scroll horizontal et adaptable.
-* **Système de Particules :** Retour visuel ultra-satisfaisant avec des pop-ups de score à l'endroit exact de la souris.
+* **Système de Particules :** Retour visuel ultra-satisfaisant avec des pop-ups de score générés dynamiquement via des IDs uniques (`crypto.randomUUID()`).
 * **Le Marché Noir (Secrets) :** Des améliorations cachées qui n'apparaissent dynamiquement que lorsque le joueur remplit certaines conditions (nombre de clics, score atteint).
-* **Manipulation Temporelle :** Possibilité de réduire le délai du "tick" serveur (de 1.00s jusqu'à 0.50s) pour accélérer la production passive de manière exponentielle.
-* **Synergie Active/Passive :** Plus vous possédez de bâtiments, plus vos clics manuels deviennent puissants grâce aux améliorations de synergie.
+* **Manipulation Temporelle & Synergie :** Possibilité d'accélérer le cycle du jeu (de 1.00s à 0.50s) et d'ajouter un pourcentage de votre production passive directement à vos clics manuels.
 * **Ascension (Prestige) :** Un système de "Soft Reset" déblocable à 1 Milliard de points, offrant un multiplicateur global pour les parties suivantes.
-* **Sauvegarde Sécurisée :** Progression sauvegardée en temps réel avec système de récupération "Anti-Crash" et "Kill Switch" pour la suppression volontaire des données.
+* **Sauvegarde Automatique Sécurisée :** Progression sauvegardée en temps réel via un Custom Hook (`usePersistentState`) intégrant un "Kill Switch" pour empêcher la corruption des données lors d'une suppression volontaire.
 
 ---
 
 ## 🚀 Installation & Développement (Local)
 
-Si vous souhaitez cloner le projet et le faire tourner sur votre machine :
-
 **1. Cloner le dépôt :**
 ```bash
 git clone [https://github.com/JUDOKA104/clicker-game.git](https://github.com/JUDOKA104/clicker-game.git)
 ```
-
-**2. Aller dans le dossier :**
+**2. Aller dans le dossier et installer les dépendances :**
 ```bash
-cd clicker-game
+cd clicker-game && npm install
 ```
-
-**3. Installer les dépendances :**
-```bash
-npm install
-```
-
-**4. Lancer le serveur de développement local :**
+**3. Lancer le serveur local :**
 ```bash
 npm run dev
 ```
 
 ---
 
-## 🛠️ Architecture du Code
+## 🛠️ Architecture du Code (Enterprise-grade)
 
-Le cœur du jeu tourne autour d'une boucle temporelle gérée par un `useEffect` sous React. Le score est mis à jour toutes les 100 millisecondes pour garantir une fluidité parfaite à l'écran, tout en respectant les mathématiques du *Gain Par Seconde (GPS)* calculé dynamiquement via `useMemo`.
+Ce projet utilise une architecture React moderne, modulaire et hautement optimisée, 100% compatible avec les règles strictes d'ESLint et le Fast Refresh de Vite :
 
-L'ajout de nouveaux bâtiments ou de nouveaux secrets se fait simplement en éditant les constantes de configuration en haut du fichier `App.jsx`, sans avoir à retoucher l'interface utilisateur (DOM dynamique).
+* **State Management via Context API :** Toute la logique mathématique, la boucle temporelle (`useEffect` tournant à 100ms) et les actions d'achat sont centralisées dans un `GameContext`.
+* **Séparation des responsabilités :** L'interface utilisateur est découpée en composants "bêtes" et réutilisables (`<Building />`, `<UpgradeButton />`, `<Clicker />`), rendant le fichier `App.jsx` extrêmement léger et facile à lire.
+* **Custom Hooks :** La gestion du `localStorage` est totalement abstraite via un hook personnalisé, garantissant un code DRY (Don't Repeat Yourself).
+* **Configuration Externe :** Les données du jeu (coût des bâtiments, prérequis des secrets) sont isolées dans un fichier `gameConfig.js`, permettant d'ajouter du contenu à l'infini sans jamais toucher à la logique React.
 
 ---
-
 Développé avec passion (et beaucoup de clics) ! 🚀
